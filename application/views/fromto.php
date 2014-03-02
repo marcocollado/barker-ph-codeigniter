@@ -1,3 +1,8 @@
+<script>
+//    window.onload=function(){
+//        google.maps.event.addDomListener(window, 'load', initialize('outputGmap',14.535067,120.982153));
+//    };
+</script>
 <div class="ui-widget">
     <label for="from">From: </label>
     <input id="from" class="search" size="50"/>
@@ -33,3 +38,4 @@
 
     </div>
 </div>
+ 

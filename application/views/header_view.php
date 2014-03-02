@@ -10,6 +10,8 @@
  <script type="text/javascript" src="<?php echo base_url();?>js/jquery-ui.js"></script>
  <script type="text/javascript" src="<?php echo base_url();?>js/custom.js"></script>
  <script type="text/javascript" src="<?php echo base_url();?>js/rating.js"></script>
+ <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
+ <!--<script type="text/javascript" src="<?php echo base_url();?>js/googlemaps.js"></script>-->
  
 </head>
 <body>

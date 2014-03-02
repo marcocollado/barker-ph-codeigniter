@@ -125,7 +125,7 @@ clear:both;
 }
 
 .ui-autocomplete-loading {  
-    background: white url('wait.gif') right center no-repeat;
+    background: white url('images/wait.gif') right center no-repeat;
 }
 
 /*#accordion-resizer {
@@ -186,3 +186,6 @@ clear:both;
     width: 70%;
 }
 
+#outputGmap{
+    height: 250px;
+}

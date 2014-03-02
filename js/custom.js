@@ -97,21 +97,27 @@ function ajaxComments(from, to, start, end) {
                     initEditRouteDialog();
                     initEditButtons();
                 }else if (flag == 3){
+                    var msgString = "";
                     for (var i in jsonData) {
+                        var msg = "";
                         if(i == 'from_not_in_db'){
                             if(jsonData[i]['FROM_NOT_IN_DB']){
                                 var from = $('#from').val();
-                                var msg = from + " not yet in our database. Send as suggestion? <a href='search/suggest_location/' class='newlocsuggestion'>Yes</a>";
+                                msg = from + " not yet in our database. Send as suggestion? <a id='nofrom' href='search/suggest_location/' class='newlocsuggestion'>Yes</a>";
+                                msgString += buildMessage('INFO',msg);
                             }
                         }else if(i == 'to_not_in_db'){
-                            if(jsonData[i]['FROM_NOT_IN_DB']){
+                            if(jsonData[i]['TO_NOT_IN_DB']){
                                 var to = $('#to').val();
-                                var msg = to + " not yet in our database. Send as suggestion? <a href='search/suggest_location/' class='newlocsuggestion'>Yes</a>";
+                                msg = to + " not yet in our database. Send as suggestion? <a id='noto' href='search/suggest_location/' class='newlocsuggestion'>Yes</a>";
+                                msgString += buildMessage('INFO',msg);
                             }
                         }else if(i == 'route_combi_not_in_db'){
-                            var msg = to + " not yet in our database. Send as suggestion? <a href='search/newroute/' class='newcombi'>Yes</a>";
+                            msg = "Route combination not yet available. Send as a suggestion? <a href='search/newroute/" +jsonData[i]['FROM'] +"/" + jsonData[i]['TO'] + "' class='newcombi'>Yes</a>";
+                            msgString += buildMessage('INFO',msg);
                         }
                     }
+                    $('#SearchOutput').html(msgString);
                 }
             } catch (err) {
                 $('#SearchOutput').html(result);
@@ -150,6 +156,7 @@ function buildMessage(msgclass,msg){
         "</p>" +
         "</div>" +
         "</div>";
+    return message;
 }
 
 function getAddRoute(travelmodes) {
@@ -563,6 +570,59 @@ $(function() {
 
         $('#newroutediv').prev().prev().append(newroutedetaildiv);
         initEditButtons();
+    });
+    $(document).on('click','.newlocsuggestion',function(event){
+        event.preventDefault();
+        var url = $(this).attr('href');
+        var id = $(this).attr('id');
+        var val = "";
+        if(id == 'nofrom'){
+            val = $('#from').val();
+        }else if(id == 'noto'){
+            val = $('#to').val();
+        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {val: val},
+            success: function(result){
+                alert('SUCCESS!');
+            },
+            error: function(result){
+                alert('FAILED!');
+            }
+        });
+    });
+    $(document).on('click','.newcombi',function(event){
+        event.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {},
+            success: function(result){
+                alert('SUCCESS!');
+            },
+            error: function(result){
+                alert('FAILED!');
+            }
+        });
+    });
+    $(document).on('click','.test',function(e){
+        var x = $('#long').val();
+        var y = $('#lat').val();
+//        var newLatLng = new google.maps.LatLng(lat, lng);
+//        var marker = new google.maps.Marker({
+//            position: newLatLng,
+//            map: map,
+//            draggable: true
+//        });
+//        marker.setPosition(newLatLng);
+//        google.maps.event.addDomListener(window, 'load', initialize('outputGmap',parseFloat(lat),parseFloat(long)));
+        alert(lat + " " + long);
+        initialize('outputGmap',x,y);
+//        alert("initialize('outputGmap',14.5939,120.9945)");
+//        initialize('outputGmap',14.5939,120.9945);
     });
     $(document).on('keypress', '.newcomment', function(e) {
         if (e.which == 13) {

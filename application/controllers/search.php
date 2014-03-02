@@ -29,8 +29,10 @@ class Search extends CI_Controller {
     
     public function newroute(){
         $this->load->model('route_model');
-        $fromid=$this->input->get('from');
-        $toid=$this->input->get('to');
+//        $fromid=$this->input->get('from');
+//        $toid=$this->input->get('to');
+        $fromid = $this->uri->segment(3,-1);
+        $toid = $this->uri->segment(4,-1);
         $this->route_model->addNewRoute($fromid,$toid);
     }
     

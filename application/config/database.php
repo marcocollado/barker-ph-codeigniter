@@ -26,13 +26,6 @@
 |	['cachedir'] The path to the folder where cache files should be stored
 |	['char_set'] The character set used in communicating with the database
 |	['dbcollat'] The character collation used in communicating with the database
-|				 NOTE: For MySQL and MySQLi databases, this setting is only used
-| 				 as a backup if your server is running PHP < 5.2.3 or MySQL < 5.0.7
-|				 (and in table creation queries made with DB Forge).
-| 				 There is an incompatibility in PHP with mysql_real_escape_string() which
-| 				 can make your site vulnerable to SQL injection if you are using a
-| 				 multi-byte character set and are running versions lower than these.
-| 				 Sites using Latin-1 or UTF-8 database character set and collation are unaffected.
 |	['swap_pre'] A default table prefix that should be swapped with the dbprefix
 |	['autoinit'] Whether or not to automatically initialize the database.
 |	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
@@ -48,10 +41,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'ap-cdbr-azure-east-b.cloudapp.net';
-$db['default']['username'] = 'b0d2b5524d6fb7';
-$db['default']['password'] = '15896bbf';
-$db['default']['database'] = 'barkerdb';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'bitnami';
+$db['default']['database'] = 'barkerph1.0';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

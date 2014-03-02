@@ -7,15 +7,19 @@
         }
         
         public function addComment(){
-            $id = $this->_getNextId();
+//            $id = $this->_getNextId();
+            $this->load->helper('text');
+            $sug_id = $this->input->post('sug_id');
+            $msg = $this->input->post('msg');
+            $msg = word_limiter($msg, strlen($msg) - 1);
             $data = array(
-                'SUG_ID'        =>  $this->input->post('sug_id'),
+                'SUG_ID'        =>  $sug_id,
                 'USER_ID'       =>  $this->session->userdata('user_id'),
                 'DATE_CREATED'  =>  mdate('%Y-%m-%d', time()),
-                'TIME_CREATED'  =>  '',
-                'CONTENT'       =>  $this->input->post('content')
+                'TIME_CREATED'  =>  mdate('%h:%i:%a', time()),
+                'CONTENT'       =>  $msg
                 );
-            $this->db->insert('COMMENTS',$data);
+            $this->db->insert('comments',$data);
         }
         
         public function getComments($suggestionid){
@@ -23,17 +27,17 @@
             return $query = $this->db->query($querystring);
         }
         
-        private function _getNextId() { 
-            $this->db->select_max('ID','IDMAX');
-            $query=$this->db->get('COMMENTS');
-            if ($query->num_rows() > 0)
-            {
-                foreach ($query->result() as $row){
-                    return ($row->IDMAX + 1);
-                }
-            }else{
-                return 1;
-            }
-        }
+//        private function _getNextId() { 
+//            $this->db->select_max('ID','IDMAX');
+//            $query=$this->db->get('COMMENTS');
+//            if ($query->num_rows() > 0)
+//            {
+//                foreach ($query->result() as $row){
+//                    return ($row->IDMAX + 1);
+//                }
+//            }else{
+//                return 1;
+//            }
+//        }
     }
 ?>

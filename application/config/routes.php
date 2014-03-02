@@ -37,8 +37,9 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-//$route['search/*'] = "findaway";
+
 $route['default_controller'] = "welcome";
+$route['images/*'] = $this->config->item('base_url') . "/images/$1";
 $route['404_override'] = '';
 
 

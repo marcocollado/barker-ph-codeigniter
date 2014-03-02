@@ -99,11 +99,17 @@ function ajaxComments(from, to, start, end) {
                 }else if (flag == 3){
                     for (var i in jsonData) {
                         if(i == 'from_not_in_db'){
-                            
+                            if(jsonData[i]['FROM_NOT_IN_DB']){
+                                var from = $('#from').val();
+                                var msg = from + " not yet in our database. Send as suggestion? <a href='search/suggest_location/' class='newlocsuggestion'>Yes</a>";
+                            }
                         }else if(i == 'to_not_in_db'){
-                            
+                            if(jsonData[i]['FROM_NOT_IN_DB']){
+                                var to = $('#to').val();
+                                var msg = to + " not yet in our database. Send as suggestion? <a href='search/suggest_location/' class='newlocsuggestion'>Yes</a>";
+                            }
                         }else if(i == 'route_combi_not_in_db'){
-                            
+                            var msg = to + " not yet in our database. Send as suggestion? <a href='search/newroute/' class='newcombi'>Yes</a>";
                         }
                     }
                 }
@@ -128,6 +134,22 @@ function ajaxComments(from, to, start, end) {
             getRoute(id)
         });
     });
+}
+
+function buildMessage(msgclass,msg){
+    if(msgclass == 'ERROR'){
+        msgclass = 'ui-state-error';
+    }else if(msgclass = 'INFO'){
+        msgclass = 'ui-state-highlight';
+    }
+    var message = "<div class='ui-widget'>" + 
+        "<div class='" + msgclass + " ui-corner-all' style='padding: 0 .7em;'>" +  
+        "<p>" +
+//        "<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>" +
+        msg + 
+        "</p>" +
+        "</div>" +
+        "</div>";
 }
 
 function getAddRoute(travelmodes) {

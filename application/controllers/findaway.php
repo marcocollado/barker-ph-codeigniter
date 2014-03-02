@@ -183,7 +183,8 @@ class Findaway extends CI_Controller {
 //                    echo "<p>Input in the TO field is not yet in our database. Send as a suggestion? " . anchor('search/suggest_location', 'yes');
                 }
             } else {
-                $data3['route_combi_not_in_db'] = array('ROUTE_COMBI_NOT_IN_DB' => true);
+                $data3['route_combi_not_in_db'] = array('ROUTE_COMBI_NOT_IN_DB' => true,'FROM' => $from,'TO' => $to);
+                
 //                echo "<p>Route combination not yet available. Send as a suggestion? " . anchor('search/newroute/?from=' . $from . '&to=' . $to, 'yes');
             }
             echo json_encode($data3);

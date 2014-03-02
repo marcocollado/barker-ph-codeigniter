@@ -60,3 +60,4 @@ ERROR - 2014-03-01 22:20:08 --> eto1
 ERROR - 2014-03-01 22:20:08 --> getSuggestions() -> SELECT * FROM SUGGESTION WHERE ROUTE_ID = 1 ORDER BY RATING_AVE DESC, RATING_COUNT DESC, DATE_CREATED DESC LIMIT 4,9
 ERROR - 2014-03-01 22:20:08 --> QUERY: SELECT * FROM ROUTE_VIEW WHERE SUG_ID=4 ORDER BY COMMUTE_SEQ ASC
 ERROR - 2014-03-01 22:20:08 --> route() 4 4
+ERROR - 2014-03-01 23:46:39 --> Severity: Warning  --> mysql_pconnect(): MySQL server has gone away /Users/jack/Library/Containers/com.bitnami.mampstack/Data/app-5_4_9/apache2/htdocs/barker-ph-codeigniter/system/database/drivers/mysql/mysql_driver.php 88

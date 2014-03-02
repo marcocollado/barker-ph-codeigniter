@@ -98,7 +98,13 @@ function ajaxComments(from, to, start, end) {
                     initEditButtons();
                 }else if (flag == 3){
                     for (var i in jsonData) {
-//                        if
+                        if(i == 'from_not_in_db'){
+                            
+                        }else if(i == 'to_not_in_db'){
+                            
+                        }else if(i == 'route_combi_not_in_db'){
+                            
+                        }
                     }
                 }
             } catch (err) {

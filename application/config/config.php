@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost:8080/barkerph1.2';
+$config['base_url']	= 'http://localhost:8080/barker-ph-codeigniter';
 
 /*
 |--------------------------------------------------------------------------

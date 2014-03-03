@@ -41,10 +41,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'bitnami';
-$db['default']['database'] = 'barkerph1.0';
+//$db['default']['hostname'] = 'localhost';
+//$db['default']['username'] = 'root';
+//$db['default']['password'] = 'bitnami';
+//$db['default']['database'] = 'barkerph1.0';
 $db['default']['hostname'] = 'ap-cdbr-azure-east-b.cloudapp.net';
 $db['default']['username'] = 'b0d2b5524d6fb7';
 $db['default']['password'] = '15896bbf';

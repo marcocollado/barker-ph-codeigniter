@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Mar 01, 2014 at 10:23 PM
+-- Generation Time: Mar 03, 2014 at 08:44 AM
 -- Server version: 5.5.28
 -- PHP Version: 5.4.9
 
@@ -109,6 +109,28 @@ INSERT INTO `commute_det` (`SUG_ID`, `COMMUTE_SEQ`, `TRANSPOMODE_ID`, `TRANSPOMO
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `latlong`
+--
+
+CREATE TABLE IF NOT EXISTS `latlong` (
+  `location_id` int(8) DEFAULT NULL,
+  `latitude` decimal(16,12) DEFAULT NULL,
+  `longitude` decimal(16,12) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `latlong`
+--
+
+INSERT INTO `latlong` (`location_id`, `latitude`, `longitude`) VALUES
+(1, '14.535067000000', '120.982153000000'),
+(2, '14.560833000000', '120.988333000000'),
+(3, '14.549555000000', '121.056075000000'),
+(4, '14.653461000000', '121.033448000000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `location_ref`
 --
 
@@ -129,7 +151,13 @@ INSERT INTO `location_ref` (`ID`, `ID_VARIANT`, `NAME`, `REMARKS`) VALUES
 (1, 2, 'Mall of Asia', ''),
 (2, 1, 'Bangko Sentral ng Pilipinas', ''),
 (2, 2, 'BSP-Manila', ''),
-(2, 3, 'Central Bank of the Philippines', '');
+(2, 3, 'Central Bank of the Philippines', ''),
+(3, 1, 'Market! Market!', ''),
+(4, 1, 'Trinoma', ''),
+(4, 2, 'Ayala Trinoma', ''),
+(5, 1, 'SM Megamall', ''),
+(5, 2, 'Megamall', ''),
+(5, 3, 'Mega Mall', '');
 
 -- --------------------------------------------------------
 
@@ -144,7 +172,15 @@ CREATE TABLE IF NOT EXISTS `loc_suggestion` (
   `TAG` int(8) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `USER_ID` (`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `loc_suggestion`
+--
+
+INSERT INTO `loc_suggestion` (`ID`, `USER_ID`, `LOC_NAME`, `TAG`) VALUES
+(1, 1, 'Market! Market!', 0),
+(2, 1, 'SM North EDSA', 0);
 
 -- --------------------------------------------------------
 
@@ -186,7 +222,8 @@ CREATE TABLE IF NOT EXISTS `routes` (
 
 INSERT INTO `routes` (`ID`, `ROUTE_FROM`, `ROUTE_TO`, `HIT_COUNT`, `DATE_CREATED`) VALUES
 (1, 1, 2, 0, '2014-02-15'),
-(2, 2, 1, 0, '2014-02-15');
+(2, 2, 1, 0, '2014-02-15'),
+(3, 2, 3, 0, '2014-03-02');
 
 -- --------------------------------------------------------
 
@@ -292,21 +329,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `ACCESS` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `password`) VALUES
-(0, 'ANONYMOUS', 'anon@nymous@email.com', '1234'),
-(1, 'jack', 'jack@email.com', 'e10adc3949ba59abbe56e057f20f883e '),
-(3, 'lester', 'lester@email.com', '81dc9bdb52d04dc20036dbd8313ed055'),
-(4, 'michelle', 'mich_ren03@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e '),
-(5, 'tonio', 'tonio@tonio.com', '81dc9bdb52d04dc20036dbd8313ed055'),
-(6, 'mhel', 'mhel@mhel.com', '81dc9bdb52d04dc20036dbd8313ed055'),
-(7, 'kevynn', 'kevs@kevs.com', '81dc9bdb52d04dc20036dbd8313ed055');
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `ACCESS`) VALUES
+(0, 'ANONYMOUS', 'anon@nymous@email.com', '1234', 'USER'),
+(1, 'jack', 'jack@email.com', 'e10adc3949ba59abbe56e057f20f883e ', 'ADMIN'),
+(3, 'lester', 'lester@email.com', '81dc9bdb52d04dc20036dbd8313ed055', 'USER'),
+(4, 'michelle', 'mich_ren03@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e ', 'USER'),
+(5, 'tonio', 'tonio@tonio.com', '81dc9bdb52d04dc20036dbd8313ed055', 'USER'),
+(6, 'mhel', 'mhel@mhel.com', '81dc9bdb52d04dc20036dbd8313ed055', 'USER'),
+(7, 'kevynn', 'kevs@kevs.com', '81dc9bdb52d04dc20036dbd8313ed055', 'USER'),
+(8, 'test', 'test@test.tes', '81dc9bdb52d04dc20036dbd8313ed055', 'USER');
 
 -- --------------------------------------------------------
 

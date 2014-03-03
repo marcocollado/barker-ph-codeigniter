@@ -13,9 +13,14 @@ class Findaway extends CI_Controller {
     public function index() {
 //        if (($this->session->userdata('user_name') == "")) {
 //        }
+        $data['username'] = $this->session->userdata('user_name');
         $this->load->view('header_view');
+        $this->load->view('user',$data);
         $this->load->view('fromto');
         $this->load->view('footer_view');
+        if($this->session->userdata('ACCESS')){
+            $this->load->view('/dropdwn/dropdwn');
+        }
     }
 
     public function paging($routeid, $from, $to, $start, $end) {

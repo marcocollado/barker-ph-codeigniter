@@ -11,7 +11,7 @@
     
     <h4><?php echo anchor('user/', 'Register/Sign In'); ?></h4>
     <h4><?php echo anchor('findaway', 'Find A Way'); ?></h4>
-
+</div>
 </div>
 
 </body>

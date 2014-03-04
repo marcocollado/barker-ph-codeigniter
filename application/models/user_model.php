@@ -57,6 +57,35 @@ class User_model extends CI_Model {
         return $query = $this->db->get('USER');
     }
 
+    public function getAllUser() {
+        return $query = $this->db->get('USER');
+    }
+
+    public function getUserFrom($limit, $start) {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get("USER");
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+    }
+
+    public function updateAccess($id, $access) {
+        $data = array(
+            'ACCESS' => $access
+        );
+        $this->db->where('id', $id);
+        $this->db->update('USER', $data);
+    }
+
+    public function record_count() {
+        return $this->db->count_all("USER");
+    }
+
 }
 
 ?>

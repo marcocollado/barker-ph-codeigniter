@@ -24,7 +24,7 @@ class Welcome extends CI_Controller {
              $this->load->view('user',$data);
              $this->load->view('index');
              $this->load->view('footer_view', $data);
-            if($this->session->userdata('ACCESS')){
+            if($this->session->userdata('rights')){
                 $this->load->view('/dropdwn/dropdwn');
             }
 	}

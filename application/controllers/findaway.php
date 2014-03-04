@@ -8,6 +8,9 @@ class Findaway extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
+        $this->load->helper("url");
+        $this->load->model("locsuggestion_model");
+        $this->load->library("pagination");
     }
 
     public function index() {
@@ -18,7 +21,8 @@ class Findaway extends CI_Controller {
         $this->load->view('user',$data);
         $this->load->view('fromto');
         $this->load->view('footer_view');
-        if($this->session->userdata('ACCESS')){
+        if($this->session->userdata('rights')){
+            log_message('ERROR','ACCESS3 enabled');
             $this->load->view('/dropdwn/dropdwn');
         }
     }
@@ -60,6 +64,42 @@ class Findaway extends CI_Controller {
             }
         }
         return $paging;
+    }
+    
+    public function uniquelocation(){
+        
+    }
+    
+    public function dellocsuggestion(){
+        $id = $this->uri->segment(3,-1);
+         $this->locsuggestion_model->deleteSuggestion($id);
+         echo $id;
+    }
+    
+    public function locsuggestions(){
+        $config = array();
+        $config["base_url"] = base_url() . "index.php/findaway/locsuggestions";
+        $config["total_rows"] = $this->locsuggestion_model->record_count();
+        $config["per_page"] = 20;
+        $config["uri_segment"] = 3;
+ 
+        $this->pagination->initialize($config);
+ 
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data["results"] = $this->locsuggestion_model->
+            fetch_suggestions($config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
+ 
+        
+        $data['username'] = $this->session->userdata('user_name');
+        $data['title'] = 'Barker-ph:Location Suggestions';
+        $this->load->view('header_view', $data);
+        $this->load->view('user', $data);
+        $this->load->view("admin/locations", $data);
+        if ($this->session->userdata('rights')) { 
+            $this->load->view('/dropdwn/dropdwn');
+        }
+        $this->load->view('footer_view', $data);
     }
     
     public function modes(){

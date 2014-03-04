@@ -6,32 +6,90 @@ if (!defined('BASEPATH'))
 class User extends CI_Controller {
 
     private $loginsuccess;
+
     public function __construct() {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('user_model');        
+        $this->load->helper("url");
+        $this->load->library("pagination");
     }
 
     public function index() {
         $data['username'] = $this->session->userdata('user_name');
-        $data['title']= 'Signin/Register';
-        $this->load->view('header_view',$data);
-        $this->load->view('user',$data);
+        $data['title'] = 'Signin/Register';
+        $this->load->view('header_view', $data);
+        $this->load->view('user', $data);
         $this->load->view("registration_view.php", $data);
-        $this->load->view('footer_view',$data);
-//        if($this->loginsuccess == 'loginsuccess'){
-//            $this->load->view('/alert/loginsuccess');
-//            $this->loginsuccess = '';
-//        }else if($this->loginsuccess == 'loginfailed'){
-//            $this->load->view('/alert/loginfailed');
-//            $this->loginsuccess = '';
-//        }
-        if($this->session->userdata('ACCESS')){
+        $this->load->view('footer_view', $data);
+        if ($this->session->userdata('rights')) {
+            log_message('ERROR', 'ACCESS1 enabled');
             $this->load->view('/dropdwn/dropdwn');
         }
     }
     
-    public function home() {
+    public function access(){
+        $id = $this->uri->segment(3,-1);
+        $access = $this->uri->segment(4,-1);
+        if($id != -1 && $access != -1){
+            $this->user_model->updateAccess($id,$access);
+        }
+        echo $id;
+    }
+    
+    public function memberlist(){ 
+        $config = array();
+        $config["base_url"] = base_url() . "index.php/user/memberlist";
+        $config["total_rows"] = $this->user_model->record_count();
+        $config["per_page"] = 10;
+        $config["uri_segment"] = 3;
+ 
+        $this->pagination->initialize($config);
+ 
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data["results"] = $this->user_model->
+            getUserFrom($config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
+ 
         
+        $data['username'] = $this->session->userdata('user_name');
+        $data['title'] = 'Barker-ph:Member List';
+        $this->load->view('header_view', $data);
+        $this->load->view('user', $data);
+        $this->load->view("admin/list", $data);
+        if ($this->session->userdata('rights')) { 
+            $this->load->view('/dropdwn/dropdwn');
+        }
+        $this->load->view('footer_view', $data);
+    }
+
+    public function admin() {
+        if ($this->session->userdata('rights') == 'ADMIN') {
+
+            $portion = $this->uri->segment(3, -1);
+            $data['username'] = $this->session->userdata('user_name');
+            $data['title'] = 'Signin/Register';
+            $this->load->view('header_view', $data);
+            $this->load->view('user', $data);
+            if ($portion == 'list') {
+                $this->load->view("admin/list", $data);
+            }else if ($portion == 'locations'){
+                $this->load->view("admin/locations", $data);
+            }else{
+                $this->load->view("admin/restricted", $data);
+            }
+            $this->load->view('footer_view', $data);
+        } else {
+            $data['username'] = $this->session->userdata('user_name');
+            $data['title'] = 'Restricted Area';
+            $this->load->view('header_view', $data);
+            $this->load->view('user', $data);
+            $this->load->view("admin/restricted", $data);
+            $this->load->view('footer_view', $data);
+        }
+    }
+
+    public function home() {
+
 //		if($this->session->userdata('user_name')!="")
 //		{
 //			$this->welcome();
@@ -39,10 +97,10 @@ class User extends CI_Controller {
 //		else{
 //			$data['title']= 'Home';
         $data['username'] = $this->session->userdata('user_name');
-        $this->load->view('header_view',$data);
-        $this->load->view('user',$data);
+        $this->load->view('header_view', $data);
+        $this->load->view('user', $data);
         $this->load->view("index.php", $data);
-        $this->load->view('footer_view',$data);
+        $this->load->view('footer_view', $data);
 //        if($this->loginsuccess == 'loginsuccess'){
 //            $this->load->view('/alert/loginsuccess');
 //            $this->loginsuccess = '';
@@ -50,7 +108,7 @@ class User extends CI_Controller {
 //            $this->load->view('/alert/loginfailed');
 //            $this->loginsuccess = '';
 //        }
-        if($this->session->userdata('ACCESS')){
+        if ($this->session->userdata('rights')) { 
             $this->load->view('/dropdwn/dropdwn');
         }
 //		}
@@ -68,10 +126,10 @@ class User extends CI_Controller {
         $password = md5($this->input->post('pass'));
 
         $result = $this->user_model->login($email, $password);
-        if ($result){
-            $this->loginsuccess = 'loginsuccess'; 
+        if ($result) {
+            $this->loginsuccess = 'loginsuccess';
             $this->home();
-        }else{
+        } else {
             $this->loginsuccess = 'loginfailed';
             $this->index();
         }
@@ -106,6 +164,7 @@ class User extends CI_Controller {
             'user_name' => '',
             'user_email' => '',
             'logged_in' => FALSE,
+            'rights' => 'USER'
         );
         $this->session->unset_userdata($newdata);
         $this->session->sess_destroy();

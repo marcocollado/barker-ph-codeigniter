@@ -9,24 +9,24 @@ class Locref_model extends CI_Model {
         parent::__construct();
     }
 
-    public function addNewLocation() {
+    public function addNewLocation($newloc) {
         $id = $this->_getNextId();
         $varid = $this->_getNextIdVariantFor($id);
         $data = array(
         'ID'            =>  $id,  
         'ID_VARIANT'    =>  $varid,
-        'NAME'          =>  $this->input->get('newloc'),
+        'NAME'          =>  $newloc,
         'REMARKS'       =>  ""
         );
         $this->db->insert('LOCATION_REF',$data);
     }
     
-    public function addNewLocationVariant($id){
+    public function addNewLocationVariant($id,$newloc){
         $varid = $this->_getNextIdVariantFor($id);
         $data = array(
         'ID'            =>  $id,  
         'ID_VARIANT'    =>  $varid,
-        'NAME'          =>  $this->input->get('newloc'),
+        'NAME'          =>  $newloc,
         'REMARKS'       =>  ""
         );
         $this->db->insert('LOCATION_REF',$data);

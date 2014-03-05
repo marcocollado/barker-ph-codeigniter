@@ -2,8 +2,10 @@
     <h1>Members</h1>
     <div id="members">
         <?php
+        $i = 0;
         foreach ($results as $data) {
-            echo "<div class='member'>";
+            echo $i%2;
+            echo "<div class='member " . (($i % 2 == 1) ?  "grayrow":"") ."'>";
             echo "<div class='memberdet'>";
             echo $data->username;
             echo "</div>";
@@ -21,6 +23,7 @@
             echo "<a href='" . base_url() . "index.php/user/access/" . $data->id . "/DISABLED' class='access'>DISABLED</a>";
             echo "</div>";
             echo "</div>";
+            $i++;
         }
         ?>
         <p><?php echo $links; ?></p>

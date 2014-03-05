@@ -15,8 +15,8 @@
 |
 */
 $config['base_url']	= 'http://barker-ph.azurewebsites.net/';
-//$config['base_url']	= 'http://localhost:8080/barker-ph-codeigniter';
-//$config['base_url']	= 'http://localhost/barker-ph-codeigniter';
+//$config['base_url']	= 'http://localhost:8080/barker-ph-codeigniter/';
+//$config['base_url']	= 'http://localhost/barker-ph-codeigniter/';
 
 /*
 |--------------------------------------------------------------------------

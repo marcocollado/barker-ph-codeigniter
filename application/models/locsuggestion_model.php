@@ -37,7 +37,7 @@ class Locsuggestion_model extends CI_Model {
             }
             return $data;
         }
-        return false;
+        return -1;
    }
 
 }

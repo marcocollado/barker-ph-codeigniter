@@ -3,17 +3,18 @@
 //        google.maps.event.addDomListener(window, 'load', initialize('outputGmap',14.535067,120.982153));
 //    };
 </script>
-<div class="ui-widget">
+<div id="userpanel">
+
+</div>
+<div id="fromtoinput" class="ui-widget">
     <label for="from">From: </label>
-    <input id="from" class="search" size="50"/>
+    <input id="from" class="search" size="35"/>
     <label for="to">To: </label>
-    <input id="to" class="search" size="50"/> 
+    <input id="to" class="search" size='35'/> 
     <input id="FindRoute" type="button" class="" value="Search" />
 </div>
-<div id="userpanel">
-    
-</div>
 <div id="leftpanel">
+
     <div id="SearchOutput">
 
     </div>
@@ -23,12 +24,12 @@
 </div>
 <div id="rightpanel">
     <div id="outputGmap">
-        
-    </div>
-    <div id="routeOutput">
 
     </div>
     <div id="editauth">
+
+    </div>
+    <div id="routeOutput">
 
     </div>
     <div id="routeEdit" title='Edit Route'>
@@ -38,4 +39,3 @@
 
     </div>
 </div>
- 

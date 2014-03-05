@@ -1,8 +1,7 @@
 <div id="locations">
     <?php
     $i = 0;
-    echo $results;
-    if ($results != -1) {
+    if (count($results)>0) {
         foreach ($results as $data) {
             echo "<div id='disp" . $data->ID . "' class='location " . (($i % 2 == 1) ? "grayrow" : "") . "'>";
             echo "<div id='val" . $data->ID . "'class='locationdet'>";
@@ -11,9 +10,9 @@
             echo "<div class='locationdet'>";
             echo "<a href='" . $data->ID . "' class='loc'>ADD TO</a>";
             echo " &bull; ";
-            echo "<a href='" . base_url() . "index.php/findaway/addnewlocsuggestion/" . $data->ID . "/" . $data->LOC_NAME . "/' class='loc'>NEW</a>";
+            echo "<a href='" . $data->ID . "' class='loc'>NEW</a>";
             echo " &bull; ";
-            echo "<a href='" . base_url() . "index.php/findaway/dellocsuggestion/" . $data->ID . "/' class='loc'>DELETE</a>";
+            echo "<a href='" . $data->ID . "' class='loc'>DELETE</a>";
             echo "</div>";
             echo "</div>";
             $i++;
@@ -67,18 +66,17 @@
     $(document).on('click', '.loc', function(e) {
         e.preventDefault();
         var func = $(this).text();
-        var url = $(this).attr('href');
+        var id = $(this).attr('href');
+        var text = $('#val' + id).text();
         if (func == 'ADD TO') {
-            var id = url;
-            var text = $('#val' + id).text();
             $('#hiddenvalue').val(text);
             $('#hiddenid').val(id);
             $('#locationlist').dialog("open");
         } else if (func == "DELETE") {
             $.ajax({
                 type: "POST",
-                url: url,
-                data: {},
+                url: "<?php echo base_url() ?>index.php/findaway/dellocsuggestion/",
+                data: {id:id},
                 success: function(id) {
                     $('#disp' + id).remove();
                 },
@@ -88,8 +86,8 @@
         } else if (func == "NEW") {
             $.ajax({
                 type: "POST",
-                url: url,
-                data: {},
+                url: "<?php echo base_url() ?>index.php/findaway/addnewlocsuggestion/",
+                data: {id:id,value:text},
                 success: function(id) {
                     $('#disp' + id).remove();
                 },

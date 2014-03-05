@@ -23,14 +23,14 @@ function ajaxComments(from, to, start, end) {
                     var stat = jsonData['status'];
                     loggedin = stat['LOGGED_IN'];
                     var pages = jsonData['paging'];
-                    var paging = "<span>" + pages['pageof']['VALUE'] + " | </span>";
+                    var paging = "<span class='pageofstyle'>" + pages['pageof']['VALUE'] + " </span> &bull;";
                     for (var i in pages){
                         if(i != 'pageof'){
                             var value = pages[i]['VALUE'];
                             var id = pages[i]['ID'];
                             if(id != -1){
                                 //url string
-                                paging += "<span class='page pages' onclick=\"" + value + "\" style='cursor:pointer'><u>" + id + "</u></span>"
+                                paging += "<span class='page' onclick=\"" + value + "\" style='cursor:pointer'><u>" + id + "</u></span>"
                             }else{
                                 paging += "<span class='pages'>" + value + "</span>";
                             }
@@ -44,10 +44,10 @@ function ajaxComments(from, to, start, end) {
                             output += "<h3 class='title'><a href='" + row['ID'] + "' class='suggestion'>" + row['TITLE'] + "</a></h3>" +
                                     "<div>" +
     //                                    "<input id='" + row['ID'] + "' type='text' value='" + row['CONTENT'] + "' style='display:none;'/>" +
-                                    "<p class='createdby'>Created by: " + row['USERNAME'] + "</p>" +
+                                    "<div class='createdby sugdet'>Created by: <strong><i>" + row['USERNAME'] + "</i></strong></div>" +
 //                                    "<div id='rating" + row['ID'] + "' class='rating'>Ratings: " + row['RATING'] + "</div>" +
-                                    "<div id='rating" + row['ID'] + "' class='rating'></div>" +
-                                    "<p class='createddate'>Date Created: " + row['DATE_CREATED'] + "</p>";
+                                    "<div class='createddate sugdet'>Date Created: " + row['DATE_CREATED'] + "</div>"+
+                                    "<div id='rating" + row['ID'] + "' class='rating'></div>";
 
                             var commentdiv = "";
                             if (!firstcommset) {
@@ -459,14 +459,14 @@ function getComments(sug_id) {
                 }
                 commentstring += "</div>";
                 if (comments['status']['LOGGED_IN']) {
-                    commentstring += "<textarea class='text-holder newcomment' placeholder='Write a comment..' ></textarea><div id='charleft'></div>";
+                    commentstring += "<textarea class='text-holder newcomment' placeholder='Write a comment..' ></textarea><div id='charleft' class='newcomment></div>";
                 } else {
                     commentstring += "<p>No you can't post a comment. <a href='user/'>Login</a> first</p>";
                 }
             } catch (err) {
                 commentstring += "</div>";
                 if (comments['status']['LOGGED_IN']) {
-                    commentstring += "<textarea class='text-holder newcomment' placeholder='Write a comment..' ></textarea><div id='charleft'></div>";
+                    commentstring += "<textarea class='text-holder newcomment' placeholder='Write a comment..' ></textarea><div id='charleft' class='newcomment'></div>";
                 } else {
                     commentstring += "<p>No you can't post a comment. <a href='user/'>Login</a> first</p>";
                 }

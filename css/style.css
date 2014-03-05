@@ -168,28 +168,36 @@ clear:both;
     padding: 10px;
 }
 
+.routedetail div{
+    display: inline-block;
+    padding: 0 10px;
+}
+
 .comment_cont{
     background-color: #c5ddfc;
     border: 2px solid;
     border-radius: 25px;
     padding: 10px;
+    width: 75%;
+    margin-left: 15%;
+    word-wrap:break-word;
 }
 
 #leftpanel{    
     display: inline-block;
     padding: 10px;
-    width: 25%;
+    width: 35%;
 }
 
 #rightpanel{
     display: inline-block;
     padding: 10px;
     vertical-align: top;
-    width: 70%;
+    width: 60%;
 }
 
 #outputGmap{
-    height: 250px;
+    /*height: 250px;*/
 }
 
 #samplehead{
@@ -201,7 +209,7 @@ clear:both;
     font-size: 90% !important;
 }
 
-.locationdet{
+.locationdet, .memberdet{
     display: inline-block;
     padding: 5px;
 }
@@ -215,4 +223,93 @@ clear:both;
     position:absolute;
     cursor:default;
     z-index:4000 !important
+}
+
+.fromtodiv {
+
+}
+
+#editauth {
+    float: right;
+    position: relative;
+}
+
+#fromtoinput{
+    text-align: center;
+}
+
+#existingcomments *{
+    font-size: 75%;
+}
+
+a.suggestion {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.newcomment{
+
+}
+
+.page {
+    background-color: #F1F7FB;
+    border-color: #BBD2E1;
+    color: #095C9B;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 7px;
+    margin-left: 5px;
+    border: 1px solid;
+    margin: 0 2px;
+}
+
+.pages {
+    background-color: #D5E7F7;
+    border-color: #BBD2E1;
+    color: #095C9B;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 7px;
+    margin-left: 5px;
+    border: 1px solid;
+    margin: 0 2px;
+}
+
+.pageofstyle{
+    /*float: right;*/
+    height: 1%;
+    margin-top: 5px;
+    text-align: right;
+    width: auto;
+}
+
+.activecomment{
+    border: 1px solid;
+    margin: 5px;
+    padding: 10px;
+}
+
+.rating {
+    position: relative;
+    top: -40px;
+    left: 325px;
+}
+
+.sugdet{
+    font-size: 80%;
+    color: gray;
+    display: inline-block;
+    width: 50%;
+}
+
+.createddate{
+    text-align: right;
+}
+h3.title{
+    margin-bottom: 0;
 }

@@ -81,15 +81,15 @@ class Findaway extends CI_Controller {
     }
     public function addnewlocsuggestion(){
         $this->load->model("locref_model");
-        $id = $this->uri->segment(3,-1);
-        $newloc = $this->uri->segment(4,-1);
+        $id = $this->input->post('id');
+        $newloc = $this->input->post('value');
         $this->locref_model->addNewLocation(urldecode($newloc));
         $this->locsuggestion_model->deleteSuggestion($id);
         echo $id;
     }
     
     public function dellocsuggestion(){
-        $id = $this->uri->segment(3,-1);
+        $id = $this->input->post('id');
          $this->locsuggestion_model->deleteSuggestion($id);
          echo $id;
     }

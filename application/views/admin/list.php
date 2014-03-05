@@ -4,7 +4,6 @@
         <?php
         $i = 0;
         foreach ($results as $data) {
-            echo $i%2;
             echo "<div class='member " . (($i % 2 == 1) ?  "grayrow":"") ."'>";
             echo "<div class='memberdet'>";
             echo $data->username;

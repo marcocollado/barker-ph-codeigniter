@@ -117,6 +117,10 @@ function ajaxComments(from, to, start, end) {
                             msgString += buildMessage('INFO',msg);
                         }
                     }
+                    $('#routeOutput').html('');
+                    $('#editauth').html('');
+                    $('#pagingOutput').html('');
+                    $('#routeEditTemplate').html('');
                     $('#SearchOutput').html(msgString);
                 }
             } catch (err) {
@@ -480,7 +484,21 @@ function getComments(sug_id) {
     });
 
 }
-
+function showMap(from,to){
+    $.ajax({
+        type: "POST",
+        url: "findaway/getlatlong/",
+        data: {from:from,to:to},
+        success: function(result){
+            var jsonData = JSON.parse(result);
+            var fromLoc = jsonData['from'];
+            var toLoc = jsonData['to'];
+            alert(fromLoc + " " + toLoc);
+        },
+        error: function(result){
+        }
+    });
+}
 $(function() {
     function split(val) {
         return val.split(/,\s*/);
@@ -518,10 +536,12 @@ $(function() {
     $("#FindRoute").click(function() {
         var from = $("#from").val();
         var to = $("#to").val();
-
-//        ajaxComments("findaway/suggestions/", from, to, 0, 4);
         ajaxComments(from, to, 0, 4);
-//        ajaxPaging(from,to);
+    });
+    $("#showMap").click(function() {
+        var from = $("#from").val();
+        var to = $("#to").val();
+        showMap(from,to);
     });
     $(document).on('click', '.movedownbtn', function(event) {
         var source = $(this).parent().parent().parent();
@@ -620,7 +640,7 @@ $(function() {
 //        marker.setPosition(newLatLng);
 //        google.maps.event.addDomListener(window, 'load', initialize('outputGmap',parseFloat(lat),parseFloat(long)));
         alert(lat + " " + long);
-        initialize('outputGmap',x,y);
+        initialize('outputGmap',14.535067000000,120.982153000000,14.560833000000,120.988333000000);
 //        alert("initialize('outputGmap',14.5939,120.9945)");
 //        initialize('outputGmap',14.5939,120.9945);
     });

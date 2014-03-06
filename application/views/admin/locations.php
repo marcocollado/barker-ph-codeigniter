@@ -28,8 +28,46 @@
     <input id="hiddenid" type='hidden'/>
     <input id="hiddenvalue" type='hidden'/>
 </div>
+<div id="latlongdialog" title="Location">
+    <label for="lat">Latitude: </label>
+    <input id="lat" />
+    <label for="long">Longitude</label>
+    <input id="long"/>
+    <input id="latlongid" type='hidden'/>
+    <input id="latlongval" type='hidden'/>
+</div>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#latlongdialog').dialog({
+            autoOpen: false,
+            modal: true,
+            buttons: {
+                save: function() { 
+                    var id = $('#latlongid').val();
+                    var text = $('#latlongval').val();
+                    var lat = $('#lat').val();
+                    var long = $('#long').val();
+                    alert(id + " " + text);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url() ?>index.php/findaway/addnewlocsuggestion/",
+                        data: {id:id,value:text,lat:lat,long:long},
+                        success: function(id) {
+                            alert('Successfully Added!');
+                            $('#disp' + id).remove();
+                            $('#latlongdialog').dialog("close");
+                        },
+                        error: function(result) {
+                            alert('Error');
+                            $('#latlongdialog').dialog("close");
+                        }
+                    });
+                },
+                cancel: function() {
+                    $('#latlongdialog').dialog("close");
+                }
+            }
+        });
         $('#locationlist').dialog({
             autoOpen: false,
             modal: true,
@@ -84,16 +122,9 @@
                 }
             });
         } else if (func == "NEW") {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>index.php/findaway/addnewlocsuggestion/",
-                data: {id:id,value:text},
-                success: function(id) {
-                    $('#disp' + id).remove();
-                },
-                error: function(result) {
-                }
-            });
+            $('#latlongval').val(text);
+            $('#latlongid').val(id);
+            $('#latlongdialog').dialog("open");
         }
     });
 </script>

@@ -12,6 +12,7 @@
     <label for="to">To: </label>
     <input id="to" class="search" size='35'/> 
     <input id="FindRoute" type="button" class="" value="Search" />
+    <input id="showMap" type="button" class="" value="Show Map" />
 </div>
 <div id="leftpanel">
 

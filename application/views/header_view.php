@@ -18,8 +18,8 @@
     </head>
     <body>
         <div id="head" style='text-align: center;'>
-            <img id='headerpic1' src='../css/images/Logoko3.jpg'/>
-            <img id='headerpic2' src='../css/images/name1.jpg'/>
+            <img id='headerpic1' src='<?php echo base_url();?>images/Logoko3.jpg'/>
+            <img id='headerpic2' src='<?php echo base_url();?>images/name1.jpg'/>
         </div>
         <div id="wrapper">
             <div class='topmenu'>

@@ -92,7 +92,7 @@
                     var value = $('#hiddenvalue').val();
                     $.ajax({
                         type: "POST",
-                        url: "findaway/addnewlocvariant/",
+                        url: "<?php echo base_url() ?>index.php/findaway/addnewlocvariant/",
                         data: {
                             existingname: existingname,
                             id: id,

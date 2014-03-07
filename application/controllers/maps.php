@@ -14,7 +14,6 @@ class maps extends CI_Controller{
 
         $from = $this->locref_model->getId($this->input->post('from'));
         $to = $this->locref_model->getId($this->input->post('to'));
-        log_message('ERROR','maps.php ' . $from . ' ' . $to);
         $data = array();
         $data['from'] = $this->latlong_model->getLatLong($from);
         $data['to'] = $this->latlong_model->getLatLong($to);

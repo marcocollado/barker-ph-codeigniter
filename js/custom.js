@@ -42,8 +42,7 @@ function ajaxComments(from, to, start, end) {
                             var row = jsonData[i];
 
                             output += "<h3 class='title'><a href='" + row['ID'] + "' class='suggestion'>" + row['TITLE'] + "</a></h3>" +
-                                    "<div>" +
-    //                                    "<input id='" + row['ID'] + "' type='text' value='" + row['CONTENT'] + "' style='display:none;'/>" +
+                                    "<div class='titlebot'>" +
                                     "<div class='createdby sugdet'>Created by: <strong><i>" + row['USERNAME'] + "</i></strong></div>" +
 //                                    "<div id='rating" + row['ID'] + "' class='rating'>Ratings: " + row['RATING'] + "</div>" +
                                     "<div class='createddate sugdet'>Date Created: " + row['DATE_CREATED'] + "</div>"+
@@ -66,6 +65,23 @@ function ajaxComments(from, to, start, end) {
                         } 
                     }
                     output += "</div></div>";
+                    
+                    var suggestJSON1 = jsonData['suggest'];
+                    var cansuggest1 = suggestJSON1['SUGGEST'];
+                    //portion for suggest
+//                    alert('here');
+                    if(cansuggest1){
+                        alert('here');
+                        var modesJSON1 = jsonData['modes'];
+                        var inputtitlestring1 = buildInputTitle(-1);
+                        var addroutestring1 = buildAddRouteString(modesJSON1);
+                        var routeeditstring1 = buildRouteDetailString('routeeditdetails','');
+                        var suggestString1 = "<div class='editrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
+                        $('#editauth').html(suggestString1);
+                        $('#routeEdit').html(inputtitlestring1 + routeeditstring1 + addroutestring1);
+                        initEditRouteDialog();
+                        initEditButtons();
+                    }
                     $('#SearchOutput').html(output);
                     $('#pagingOutput').html(paging);
                     //portion to set rating
@@ -75,27 +91,15 @@ function ajaxComments(from, to, start, end) {
                             $('#rating' + row['ID']).rating('findaway/rating/' + row['ID'] + '/', {maxvalue:5, curvalue:row['RATING']});
                         }
                     }
-                    var suggestJSON = jsonData['suggest'];
-                    var cansuggest1 = suggestJSON['SUGGEST'];
-                    //portion for suggest
-                    if(cansuggest1){
-                        var modesJSON1 = jsonData['modes'];
-                        var inputtitlestring = buildInputTitle(-1);
-                        var addroutestring = buildAddRouteString(modesJSON1);
-                        var routeeditstring = buildRouteDetailString('routeeditdetails','');
-                        var suggestString = "<div class='editrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
-                        $('#editauth').html(suggestString);
-                        $('#routeEdit').html(inputtitlestring + routeeditstring + addroutestring);
-                        initEditRouteDialog();
-                        initEditButtons();
-                    }
                 }else if(flag == 2){
                     var outputJSON = jsonData['output'];
                     var outputString = "<span class='noresult'>" + outputJSON['OUTPUT'] + "</span>";
                     var suggestJSON = jsonData['suggest'];
                     var cansuggest = suggestJSON['SUGGEST'];
                     var suggestString = "";
-                    if(cansuggest){
+                    var stat = jsonData['status'];
+                    loggedin = stat['LOGGED_IN'];
+                    if(cansuggest && loggedin){
                         var modesJSON = jsonData['modes'];
                         var inputtitlestring = buildInputTitle(-1);
                         var addroutestring = buildAddRouteString(modesJSON);
@@ -293,7 +297,7 @@ function getRoute(sug_id) {
 }
 function initEditRouteDialog(){
     $("#routeEdit").dialog({
-            width: 750,
+            width: 770,
             autoOpen: false,
             modal: true,
             buttons: {
@@ -360,8 +364,8 @@ function buildInputTitle(sug_id){
 function buildRouteDetailString(classname,routestring){
     var from = $('#from').val();
     var to = $('#to').val();
-    routestring = "<div class='" + classname + "'>" + routestring + "</div><div class='fromto'> To: " + to + "</div>";
-    return routestring = "<div class='fromto'> From: " + from + "</div>" + routestring;
+    routestring = "<div class='" + classname + " routebot'>" + routestring + "</div><div class='fromto botbot'> To: " + to + "</div>";
+    return routestring = "<div class='fromto titleroute'> From: " + from + "</div>" + routestring;
 }
 function buildAddRouteString(modes){
     return "<div id='newroutediv'>" + getAddRoute(modes) + "</div>";
@@ -535,6 +539,31 @@ $(function() {
     }).autocomplete({
         source: function(request, response) {
             $.getJSON("search/", {
+                term: extractLast(request.term)
+            }, response);
+        },
+        search: function() {
+            if (this.value.length < 2) {
+                return false;
+            }
+        },
+        focus: function() {
+            return false;
+        },
+        messages: {
+            noResults: '',
+            results: function() {
+            }
+        }
+    });
+    $(".searchexisting").bind("keydown", function(event) {
+        if (event.keyCode === $.ui.keyCode.TAB &&
+                $(this).data("ui-autocomplete").menu.active) {
+            event.preventDefault();
+        }
+    }).autocomplete({
+        source: function(request, response) {
+            $.getJSON("../../search/", {
                 term: extractLast(request.term)
             }, response);
         },

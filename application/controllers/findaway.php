@@ -185,7 +185,7 @@ class Findaway extends CI_Controller {
         $end = $this->input->post('end');
         $routeid = $this->route_model->getRouteId($from, $to);
         $paging = $this->paging($routeid, $this->input->post('from'), $this->input->post('to'), $start, $end);
-
+        
         if ($routeid != -1) {
             $query = $this->suggestion_model->getSuggestions($routeid, $start, $end);
             $hassuggested = $this->suggestion_model->getRouteUser($routeid);
@@ -231,6 +231,7 @@ class Findaway extends CI_Controller {
                 //if registered user, create own suggestion for specific route combination
                 $data2 = array();
                 $data2['flag'] = array('FLAG' => 2);
+                $data2['status'] = array('LOGGED_IN' => $this->session->userdata('logged_in'));
                 $data2['output'] = array('OUTPUT' => "No Results Found.");
                 $data2['suggest'] = $suggest;
                 if($setmodes){

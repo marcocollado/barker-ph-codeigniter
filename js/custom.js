@@ -690,8 +690,8 @@ $(function() {
 //        initialize('outputGmap',14.535067000000,120.982153000000,14.560833000000,120.988333000000);
     });
     $(document).on('keypress', '.newcomment', function(e) {
-        alert(e.which);
-        if (e.which == 13) {
+//        alert(e.which);
+        if (e.which === 13) {
             var msg = $(this).val();
             var sug_id = $('.activecomment').attr('id');
             $.ajax({

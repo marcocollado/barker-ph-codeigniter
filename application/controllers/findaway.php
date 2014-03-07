@@ -17,8 +17,8 @@ class Findaway extends CI_Controller {
 //        if (($this->session->userdata('user_name') == "")) {
 //        }
         $data['username'] = $this->session->userdata('user_name');
-        $this->load->view('header_view');
-        $this->load->view('user',$data);
+        $this->load->view('header_view',$data);
+//        $this->load->view('user',$data);
         $this->load->view('fromto');
         $this->load->view('footer_view');
         if($this->session->userdata('rights') == 'ADMIN'){
@@ -116,7 +116,7 @@ class Findaway extends CI_Controller {
         $data['username'] = $this->session->userdata('user_name');
         $data['title'] = 'Barker-ph:Location Suggestions';
         $this->load->view('header_view', $data);
-        $this->load->view('user', $data);
+//        $this->load->view('user', $data);
         if ($this->session->userdata('rights') == 'ADMIN') { 
             $this->load->view('/dropdwn/dropdwn');
             $this->load->view("admin/locations", $data);

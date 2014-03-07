@@ -385,7 +385,7 @@ a.button:hover {
 	-moz-border-radius-bottomleft:13px;
 	border-bottom-left-radius:13px;
 	text-indent:0px;
-	border:1px solid #84bbf3;
+	/*border:1px solid #84bbf3;*/
 	display:inline-block;
 	color:#ffffff;
 	font-family:Arial;
@@ -545,4 +545,16 @@ h1, h2, h3, h4 {
 .labeldiv{
     display: inline-block;
     width: 100px;
+}
+
+#user{
+    float: right;
+}
+
+.menubtn{
+    display: inline-block;
+}
+    
+.topmenu{
+    background: -moz-linear-gradient(center top , #79BBFF 5%, #378DE5 100%) repeat scroll 0 0 #79BBFF !important;
 }

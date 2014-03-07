@@ -21,7 +21,7 @@ class Welcome extends CI_Controller {
 	{
              $data['username'] = $this->session->userdata('user_name');
              $this->load->view('header_view', $data); 
-             $this->load->view('user',$data);
+//             $this->load->view('user',$data);
              $this->load->view('index');
              $this->load->view('footer_view', $data);
             if($this->session->userdata('rights') == 'ADMIN'){

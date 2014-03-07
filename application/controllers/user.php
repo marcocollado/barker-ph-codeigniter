@@ -18,7 +18,7 @@ class User extends CI_Controller {
         $data['username'] = $this->session->userdata('user_name');
         $data['title'] = 'Signin/Register';
         $this->load->view('header_view', $data);
-        $this->load->view('user', $data);
+//        $this->load->view('user', $data);
         $this->load->view("registration_view.php", $data);
         $this->load->view('footer_view', $data);
         if ($this->session->userdata('rights') == 'ADMIN') {
@@ -54,7 +54,7 @@ class User extends CI_Controller {
         $data['username'] = $this->session->userdata('user_name');
         $data['title'] = 'Barker-ph:Member List';
         $this->load->view('header_view', $data);
-        $this->load->view('user', $data);
+//        $this->load->view('user', $data);
         if ($this->session->userdata('rights') == 'ADMIN') { 
             $this->load->view('/dropdwn/dropdwn');
             $this->load->view("admin/list", $data);
@@ -71,7 +71,7 @@ class User extends CI_Controller {
             $data['username'] = $this->session->userdata('user_name');
             $data['title'] = 'Signin/Register';
             $this->load->view('header_view', $data);
-            $this->load->view('user', $data);
+//            $this->load->view('user', $data);
             if ($portion == 'list') {
                 $this->load->view("admin/list", $data);
             }else if ($portion == 'locations'){
@@ -84,7 +84,7 @@ class User extends CI_Controller {
             $data['username'] = $this->session->userdata('user_name');
             $data['title'] = 'Restricted Area';
             $this->load->view('header_view', $data);
-            $this->load->view('user', $data);
+//            $this->load->view('user', $data);
             $this->load->view("admin/restricted", $data);
             $this->load->view('footer_view', $data);
         }
@@ -100,7 +100,7 @@ class User extends CI_Controller {
 //			$data['title']= 'Home';
         $data['username'] = $this->session->userdata('user_name');
         $this->load->view('header_view', $data);
-        $this->load->view('user', $data);
+//        $this->load->view('user', $data);
         $this->load->view("index.php", $data);
         $this->load->view('footer_view', $data);
 //        if($this->loginsuccess == 'loginsuccess'){

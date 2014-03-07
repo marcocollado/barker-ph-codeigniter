@@ -16,7 +16,7 @@
                 'SUG_ID'        =>  $sug_id,
                 'USER_ID'       =>  $this->session->userdata('user_id'),
                 'DATE_CREATED'  =>  mdate('%Y-%m-%d', time()),
-                'TIME_CREATED'  =>  mdate('%h:%i:%a', time()),
+                'TIME_CREATED'  =>  mdate('%h:%i:00', time()),
                 'CONTENT'       =>  $msg
                 );
             $this->db->insert('comments',$data);

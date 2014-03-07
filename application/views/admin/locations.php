@@ -47,7 +47,6 @@
                     var text = $('#latlongval').val();
                     var lat = $('#lat').val();
                     var long = $('#long').val();
-                    alert(id + " " + text);
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url() ?>index.php/findaway/addnewlocsuggestion/",

@@ -296,8 +296,6 @@ function initEditRouteDialog(){
                         var newroutes = [];
                         var sug_id = $('.routetitle').attr('id');
                         var newtitle = $('.routetitle').val();
-                        alert('sug_id: ' + sug_id);
-                        alert('rout title: ' + newtitle);
                     $('#routeEdit .routeeditdetails .routedetail').each(function(index,element){
                         var elementclass = $(element).attr('class');
                         var modeid = "";
@@ -331,7 +329,6 @@ function initEditRouteDialog(){
                         newroutes.push(newroute);
 //                        alert(modeid + " " + modedesc + " " + traveldesc + " " + fare + " " + eta);
                     });
-                    alert("Stringify: " + JSON.stringify(newroutes));
                     updateRoute(newroutes,sug_id,newtitle);
                     $(this).dialog("close");
                 },
@@ -385,18 +382,14 @@ function updateRoute(newroutes,sug_id,newtitle){
                     initEditButtons();
                 });
                 $('#routeOutput .routedetails').children().each(function(index,element){
-                    alert('here: ' + index);
                     $(element).children().each(function(index2,child){
-                        alert('class: ' + $(child).attr('class'));
                         if($(child).attr('class') == 'moveupdown' || $(child).attr('class') == 'removebtn'){
                             $(child).remove();
                         }
                     });
                 });
                 $('#routeEditTemplate .routedetails').children().each(function(index,element){
-                    alert('here: ' + index);
                     $(element).children().each(function(index2,child){
-                        alert('class: ' + $(child).attr('class'));
                         if($(child).attr('class') == 'moveupdown' || $(child).attr('class') == 'removebtn'){
                             $(child).remove();
                         }
@@ -413,13 +406,11 @@ function updateRoute(newroutes,sug_id,newtitle){
                     var to = $("#to").val();
                     ajaxComments(from, to, 0, 4);
                 }
-                alert(result + " in updating route.");
             }else{
                 //restore edit dialog
                 var inputtitlediv = "<div id='routetitlediv'>" + $('#routetitlediv').html() + "</div>";
                 var newroutetemplate = "<div id='newroutediv'>" + $('#newroutediv').html() + "</div>";
                 $('#routeEdit').html(inputtitlediv + $('#routeEditTemplate').html() + newroutetemplate);
-                alert(result + " in updating route.");
             }
         },
         error: function(result){
@@ -511,7 +502,11 @@ function showMap(from,to){
             var fromLoc = jsonData['from'];
             var toLoc = jsonData['to'];
             $('#outputGmap').show();
+            try{
             initialize('outputGmap',from,fromLoc[0]['LAT'], fromLoc[0]['LONG'], to,toLoc[0]['LAT'],toLoc[0]['LONG']);
+            }catch(err){
+                $('#outputGmap').hide();
+            }
         },
         error: function(result){
             $('#outputGmap').hide();
@@ -655,7 +650,6 @@ $(function() {
     $(document).on('click','.test',function(e){
         var x = $('#long').val();
         var y = $('#lat').val();
-        alert(lat + " " + long);
 //        initialize('outputGmap',14.535067000000,120.982153000000,14.560833000000,120.988333000000);
     });
     $(document).on('keypress', '.newcomment', function(e) {
@@ -673,7 +667,6 @@ $(function() {
                     try {
                         var comments = JSON.parse(data);
                         for (var j in comments) {
-                            alert(j); 
                             var comment = comments[j];
                             commentstring += "<p class='comment_cont'>" + comment['CONTENT'];
                             +"</p><br/>";
@@ -683,7 +676,6 @@ $(function() {
                     } catch (err) {
 
                     }
-                    alert(commentstring);
                     $('#existingcomments').append(commentstring);
                 }
             });

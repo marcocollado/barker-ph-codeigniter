@@ -55,9 +55,11 @@ class User extends CI_Controller {
         $data['title'] = 'Barker-ph:Member List';
         $this->load->view('header_view', $data);
         $this->load->view('user', $data);
-        $this->load->view("admin/list", $data);
-        if ($this->session->userdata('rights')) { 
+        if ($this->session->userdata('rights') == 'ADMIN') { 
             $this->load->view('/dropdwn/dropdwn');
+            $this->load->view("admin/list", $data);
+        }else{
+            $this->load->view("admin/restricted", $data);    
         }
         $this->load->view('footer_view', $data);
     }
@@ -108,7 +110,7 @@ class User extends CI_Controller {
 //            $this->load->view('/alert/loginfailed');
 //            $this->loginsuccess = '';
 //        }
-        if ($this->session->userdata('rights')) { 
+        if ($this->session->userdata('rights') == 'ADMIN') { 
             $this->load->view('/dropdwn/dropdwn');
         }
 //		}
@@ -124,7 +126,7 @@ class User extends CI_Controller {
     public function login() {
         $email = $this->input->post('email');
         $password = md5($this->input->post('pass'));
-
+        log_message('ERROR',$email . ' tst ' . $password);
         $result = $this->user_model->login($email, $password);
         if ($result) {
             $this->loginsuccess = 'loginsuccess';

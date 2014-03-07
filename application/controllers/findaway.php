@@ -113,9 +113,11 @@ class Findaway extends CI_Controller {
         $data['title'] = 'Barker-ph:Location Suggestions';
         $this->load->view('header_view', $data);
         $this->load->view('user', $data);
-        $this->load->view("admin/locations", $data);
-        if ($this->session->userdata('rights')) { 
+        if ($this->session->userdata('rights') == 'ADMIN') { 
             $this->load->view('/dropdwn/dropdwn');
+            $this->load->view("admin/locations", $data);
+        }else{
+            $this->load->view("admin/restricted", $data);    
         }
         $this->load->view('footer_view', $data);
     }

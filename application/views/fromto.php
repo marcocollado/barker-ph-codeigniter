@@ -24,6 +24,9 @@
     <div id="editauth">
 
     </div>
+    <div id='suggauth'>
+        
+    </div>
     <div id="routeOutput">
 
     </div>

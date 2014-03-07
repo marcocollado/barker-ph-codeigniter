@@ -256,7 +256,7 @@ clear:both;
 
 }
 
-#editauth {
+#editauth,#suggauth {
     float: right;
     position: relative;
     right: 10px;

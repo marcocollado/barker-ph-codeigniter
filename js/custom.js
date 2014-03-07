@@ -70,17 +70,20 @@ function ajaxComments(from, to, start, end) {
                     var cansuggest1 = suggestJSON1['SUGGEST'];
                     //portion for suggest
 //                    alert('here');
-                    if(cansuggest1){
-                        alert('here');
+                    if(cansuggest1 && loggedin){
+//                        alert("Give your own suggestion!");
                         var modesJSON1 = jsonData['modes'];
                         var inputtitlestring1 = buildInputTitle(-1);
                         var addroutestring1 = buildAddRouteString(modesJSON1);
                         var routeeditstring1 = buildRouteDetailString('routeeditdetails','');
-                        var suggestString1 = "<div class='editrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
-                        $('#editauth').html(suggestString1);
+                        var suggestString1 = "<div class='suggrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
+                        $('#suggauth').html(suggestString1);
                         $('#routeEdit').html(inputtitlestring1 + routeeditstring1 + addroutestring1);
                         initEditRouteDialog();
                         initEditButtons();
+                    }else{
+                        var suggestString1 = "<div class='suggrouteauth'></div>";
+                        $('#suggauth').html(suggestString1);
                     }
                     $('#SearchOutput').html(output);
                     $('#pagingOutput').html(paging);
@@ -687,6 +690,7 @@ $(function() {
 //        initialize('outputGmap',14.535067000000,120.982153000000,14.560833000000,120.988333000000);
     });
     $(document).on('keypress', '.newcomment', function(e) {
+        alert(e.which);
         if (e.which == 13) {
             var msg = $(this).val();
             var sug_id = $('.activecomment').attr('id');

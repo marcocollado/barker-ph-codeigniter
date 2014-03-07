@@ -9,14 +9,14 @@ class Latlong_model extends CI_Model {
         parent::__construct();
     }
 
-    public function newLatLong() {
-        $id = $this->input->post('id');
+    public function newLatLong($id) {
         $latitude = $this->input->post('lat');
         $longitude = $this->input->post('long');
+        log_message('ERROR','newlatlong' . ' ' . $id . ' ' . $latitude . ' ' . $longitude);
         $data = array(
-            'LOCATION_ID' => $id,
-            'LATITUDE' => $latitude,
-            'LONGITUDE' => $longitude
+            'location_id' => $id,
+            'latitude' => $latitude,
+            'longitude' => $longitude
         );
         $this->db->insert('LATLONG', $data);
     }

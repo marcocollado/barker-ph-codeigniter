@@ -241,7 +241,7 @@ clear:both;
 }
 
 .grayrow{
-    background-color: lightgray;
+    background-color: lightgray !important;
 }
 
 .ui-autocomplete
@@ -520,6 +520,16 @@ a.button:hover {
     margin: 0 auto;
     /*padding: 180px 0 0;*/
     width: 372px;
+}
+.memberlist_wrapper{
+    margin: 0 auto;
+    /*padding: 180px 0 0;*/
+    width: 60%;
+}
+.locationlist_wrapper{
+    margin: 0 auto;
+    /*padding: 180px 0 0;*/
+    width: 40%;
 }
 h3 {
     font-size: 18px;

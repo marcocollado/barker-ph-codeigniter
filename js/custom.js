@@ -75,14 +75,21 @@ function ajaxComments(from, to, start, end) {
                             $('#rating' + row['ID']).rating('findaway/rating/' + row['ID'] + '/', {maxvalue:5, curvalue:row['RATING']});
                         }
                     }
+                    var suggestJSON = jsonData['suggest'];
+                    var cansuggest1 = suggestJSON['SUGGEST'];
                     //portion for suggest
-                    if(cansuggest){
-                        var modesJSON = jsonData['modes'];
+                    if(cansuggest1){
+                        alert('tet');
+                        var modesJSON1 = jsonData['modes'];
                         var inputtitlestring = buildInputTitle(-1);
-                        var addroutestring = buildAddRouteString(modesJSON);
+                        var addroutestring = buildAddRouteString(modesJSON1);
                         var routeeditstring = buildRouteDetailString('routeeditdetails','');
                         var suggestString = "<div class='editrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
+                        alert('here');
                         $('#editauth').html(suggestString);
+                        $('#routeEdit').html(inputtitlestring + routeeditstring + addroutestring);
+                        initEditRouteDialog();
+                        initEditButtons();
                     }
                 }else if(flag == 2){
                     var outputJSON = jsonData['output'];

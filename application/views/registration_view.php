@@ -109,7 +109,6 @@
 
             if (email != 0)
             {
-
                 if (isValidEmailAddress(email))
                 {
                     $("#email_verify").css({"background-image": "url('<?php echo base_url(); ?>images/yes.png')"});

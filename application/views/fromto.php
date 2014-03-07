@@ -1,8 +1,3 @@
-<script>
-//    window.onload=function(){
-//        google.maps.event.addDomListener(window, 'load', initialize('outputGmap',14.535067,120.982153));
-//    };
-</script>
 <div id="userpanel">
 
 </div>
@@ -12,7 +7,6 @@
     <label for="to">To: </label>
     <input id="to" class="search" size='35'/> 
     <input id="FindRoute" type="button" class="" value="Search" />
-    <input id="showMap" type="button" class="" value="Show Map" />
 </div>
 <div id="leftpanel">
 
@@ -24,7 +18,7 @@
     </div>
 </div>
 <div id="rightpanel">
-    <div id="outputGmap">
+    <div id="outputGmap" style="display: none;">
 
     </div>
     <div id="editauth">

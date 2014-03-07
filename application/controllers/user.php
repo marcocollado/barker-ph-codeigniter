@@ -21,7 +21,7 @@ class User extends CI_Controller {
         $this->load->view('user', $data);
         $this->load->view("registration_view.php", $data);
         $this->load->view('footer_view', $data);
-        if ($this->session->userdata('rights')) {
+        if ($this->session->userdata('rights') == 'ADMIN') {
             log_message('ERROR', 'ACCESS1 enabled');
             $this->load->view('/dropdwn/dropdwn');
         }

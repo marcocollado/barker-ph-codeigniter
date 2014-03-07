@@ -145,9 +145,12 @@ clear:both;
     font-weight: bold;
 }
 
-.moveupbtn, .movedownbtn, .removeroutebtn, .newroute{
+.moveupbtn, .movedownbtn, .removeroutebtn{
     width: 16px;
     height: 16px;
+}
+.moveup,.movedown{
+    display: block !important;
 }
 
 /*.ui-helper-hidden-accessible {
@@ -162,10 +165,9 @@ clear:both;
 }*/
 
 .routedetail{   
-    background-color: #FFC0CB;
     border: 2px solid;
-    border-radius: 25px;
     padding: 10px;
+    margin: 5px;
 }
 
 .routedetail div{
@@ -173,7 +175,7 @@ clear:both;
     padding: 0 10px;
 }
 
-.comment_cont{
+/*.comment_cont{
     background-color: #c5ddfc;
     border: 2px solid;
     border-radius: 25px;
@@ -181,12 +183,34 @@ clear:both;
     width: 75%;
     margin-left: 15%;
     word-wrap:break-word;
+}*/ 
+.comment_cont:after { 
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 15px 15px 0;
+    border-color: #F3961C transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    bottom: -15px;
+    left: 90%;
+}
+.comment_cont {
+    background: linear-gradient(#F9D835, #F3961C) repeat scroll 0 0 transparent;
+    border-radius: 10px 10px 10px 10px;
+    color: #000000;
+    margin: 1em 0 3em;
+    padding: 15px;
+    position: relative;
 }
 
 #leftpanel{    
     display: inline-block;
     padding: 10px;
     width: 35%;
+    background: none;
+    background-image: url("./images/menu_content_bg.png");
 }
 
 #rightpanel{
@@ -194,6 +218,8 @@ clear:both;
     padding: 10px;
     vertical-align: top;
     width: 60%;
+    background: none;
+    background-image: url("./images/menu_content_bg.png");
 }
 
 #outputGmap{
@@ -312,4 +338,60 @@ a:hover {
 }
 h3.title{
     margin-bottom: 0;
+}
+
+a.button {
+    text-decoration: none;
+}
+.button {
+    background: -moz-linear-gradient(center top , #34696F, #2F5F63) repeat scroll 0 0 transparent;
+    border: 2px solid rgba(33, 68, 72, 0.59);
+    border-radius: 50px 50px 50px 50px;
+    box-shadow: 0 4px 0 #1B383B;
+    color: rgba(0, 0, 0, 0.55);
+    display: block;
+    text-align: center;
+    text-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
+    width: 100px;
+}
+
+a.button:hover {
+    background: #3d7a80;
+    background: -webkit-linear-gradient(top, #3d7a80, #2f5f63);
+    background: -moz-linear-gradient(top, #3d7a80, #2f5f63);
+    background: -o-linear-gradient(top, #3d7a80, #2f5f63);
+    background: -ms-linear-gradient(top, #3d7a80, #2f5f63);
+    background: linear-gradient(top, #3d7a80, #2f5f63);
+}
+
+#wrapper div{
+    background: none;
+}
+.transpomode{
+    width: 10%;
+}
+.transpomode_desc{
+    width: 25%;
+}
+.travel_desc{
+    width: 25%;
+}
+.fare{
+    width: 5%;
+}
+.ETA{
+    width: 5%;
+}
+
+.addroutelabel {
+    font-weight: bold;
+}
+
+.addroutelabeldiv{
+    display: inline-block;
+    width: 100px;
+}
+
+.addroutediv{
+    
 }

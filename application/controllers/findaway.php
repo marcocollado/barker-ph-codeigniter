@@ -21,7 +21,7 @@ class Findaway extends CI_Controller {
         $this->load->view('user',$data);
         $this->load->view('fromto');
         $this->load->view('footer_view');
-        if($this->session->userdata('rights')){
+        if($this->session->userdata('rights') == 'ADMIN'){
             log_message('ERROR','ACCESS3 enabled');
             $this->load->view('/dropdwn/dropdwn');
         }

@@ -75,6 +75,15 @@ function ajaxComments(from, to, start, end) {
                             $('#rating' + row['ID']).rating('findaway/rating/' + row['ID'] + '/', {maxvalue:5, curvalue:row['RATING']});
                         }
                     }
+                    //portion for suggest
+                    if(cansuggest){
+                        var modesJSON = jsonData['modes'];
+                        var inputtitlestring = buildInputTitle(-1);
+                        var addroutestring = buildAddRouteString(modesJSON);
+                        var routeeditstring = buildRouteDetailString('routeeditdetails','');
+                        var suggestString = "<div class='editrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
+                        $('#editauth').html(suggestString);
+                    }
                 }else if(flag == 2){
                     var outputJSON = jsonData['output'];
                     var outputString = "<span class='noresult'>" + outputJSON['OUTPUT'] + "</span>";
@@ -86,7 +95,7 @@ function ajaxComments(from, to, start, end) {
                         var inputtitlestring = buildInputTitle(-1);
                         var addroutestring = buildAddRouteString(modesJSON);
                         var routeeditstring = buildRouteDetailString('routeeditdetails','');
-                        suggestString = "<div class='editrouteauth'><a class='editroute' href='#'>Suggest</a></div>";
+                        suggestString = "<div class='editrouteauth'><a class='editroute button' href='#'>Suggest</a></div>";
                     }
                     $('#SearchOutput').html(outputString);
                     $('#routeEdit').html(inputtitlestring + routeeditstring + addroutestring);
@@ -122,6 +131,7 @@ function ajaxComments(from, to, start, end) {
                     $('#pagingOutput').html('');
                     $('#routeEditTemplate').html('');
                     $('#SearchOutput').html(msgString);
+                    $('#outputGmap').hide();
                 }
             } catch (err) {
                 $('#SearchOutput').html(result);
@@ -129,6 +139,7 @@ function ajaxComments(from, to, start, end) {
                 $('#routeOutput').html('');
                 $('#editauth').html('');
                 $('#routeEditTemplate').html('');
+                $('#outputGmap').hide();
             }
         }
     }).done(function() {
@@ -172,11 +183,16 @@ function getAddRoute(travelmodes) {
             var mode = modes[i];
             modeoptions += "<option value='" + mode['ID'] + "_" + mode['COLOR'] + "'>" + mode['NAME'] + "</option>";
         }
-        addroutestring += "<select id='newmode'>" + modeoptions + "</select>";
-        addroutestring += "<textarea id='newmoderemark' placeholder='Write description for the mode of transportation' value=''/>";
-        addroutestring += "<textarea id='newtravelremark' placeholder='Write description during travel or where to alight' value=''/>";
-        addroutestring += "<input type='text' id='newfare' value=''/>";
-        addroutestring += "<input type='text' id='neweta' value=''/>";
+        addroutestring += "<div class='addroutediv'><div class='addroutelabeldiv'><label class='addroutelabel' for='newmode'>Mode of Trans:</label></div>";
+        addroutestring += "<select id='newmode'>" + modeoptions + "</select></div>";
+        addroutestring += "<div class='addroutediv'><div class='addroutelabeldiv'><label class='addroutelabel' for='newmoderemark'>Transportation Description:</label></div>";
+        addroutestring += "<textarea id='newmoderemark' placeholder='Write description for the mode of transportation' value=''/></div>";
+        addroutestring += "<div class='addroutediv'><div class='addroutelabeldiv'><label class='addroutelabel' for='newtravelremark'>Travel Description:</label></div>";
+        addroutestring += "<textarea id='newtravelremark' placeholder='Write description during travel or where to alight' value=''/></div>";
+        addroutestring += "<div class='addroutediv'><div class='addroutelabeldiv'><label class='addroutelabel' for='newfare'>Estimated Fare:</label></div>";
+        addroutestring += "<input type='text' id='newfare' value=''/></div>";
+        addroutestring += "<div class='addroutediv'><div class='addroutelabeldiv'><label class='addroutelabel' for='neweta'>Estimated Travel Time:</label></div>";
+        addroutestring += "<input type='text' id='neweta' value=''/></div>";
         addroutestring += "<span class='newroute'>Add</span>";
     } catch (err) {
         alert(err);
@@ -254,11 +270,11 @@ function getRoute(sug_id) {
 
             var editroute = "";
             if (owner) {
-                editroute = "<div id='editrouteauth'><a class='editroute' href='#'>Edit</a></div>";
+                editroute = "<div id='editrouteauth'><a class='editroute button' href='#'>Edit</a></div>";
                 $('#routeEdit').html(inputtitlestring + routeeditstring + addRouteString);
                 $('#routeEditTemplate').html(routeeditstring);
             } else {
-                editroute = "<div id='editrouteauth'>You can not edit this!</div>";
+                editroute = "<div id='editrouteauth'></div>";
                 $('#routeEdit').html('');
                 $('#routeEditTemplate').html('');
             }
@@ -272,6 +288,7 @@ function getRoute(sug_id) {
 }
 function initEditRouteDialog(){
     $("#routeEdit").dialog({
+            width: 750,
             autoOpen: false,
             modal: true,
             buttons: {
@@ -420,7 +437,7 @@ function initEditButtons() {
         icons: {
             primary: "ui-icon-circle-plus",
         },
-        text: false
+        text: true
     });
     $(".moveupbtn").button({
         icons: {
@@ -487,15 +504,18 @@ function getComments(sug_id) {
 function showMap(from,to){
     $.ajax({
         type: "POST",
-        url: "findaway/getlatlong/",
+        url: "maps/latlong",
         data: {from:from,to:to},
         success: function(result){
             var jsonData = JSON.parse(result);
             var fromLoc = jsonData['from'];
             var toLoc = jsonData['to'];
-            alert(fromLoc + " " + toLoc);
+            $('#outputGmap').show();
+            initialize('outputGmap',from,fromLoc[0]['LAT'], fromLoc[0]['LONG'], to,toLoc[0]['LAT'],toLoc[0]['LONG']);
         },
         error: function(result){
+            $('#outputGmap').hide();
+            alert("Error encountered showing map.");
         }
     });
 }
@@ -536,7 +556,12 @@ $(function() {
     $("#FindRoute").click(function() {
         var from = $("#from").val();
         var to = $("#to").val();
+        if(from == '' || to == ''){
+            alert("Some fields missing.");
+        }else{
         ajaxComments(from, to, 0, 4);
+        showMap(from,to);
+        }
     });
     $("#showMap").click(function() {
         var from = $("#from").val();
@@ -574,8 +599,7 @@ $(function() {
         event.preventDefault();
         $("#routeEdit").dialog("open");
     }); 
-    $(document).on('click', '.newroute', function(event) {
-        alert('add new route');
+    $(document).on('click', '.newroute', function(event) { 
         var newmodearr = $('#newmode').val().split("_");
         var newmode = $('#newmode :selected').text();
         var newmoderemark = $('#newmoderemark').val();
@@ -631,18 +655,8 @@ $(function() {
     $(document).on('click','.test',function(e){
         var x = $('#long').val();
         var y = $('#lat').val();
-//        var newLatLng = new google.maps.LatLng(lat, lng);
-//        var marker = new google.maps.Marker({
-//            position: newLatLng,
-//            map: map,
-//            draggable: true
-//        });
-//        marker.setPosition(newLatLng);
-//        google.maps.event.addDomListener(window, 'load', initialize('outputGmap',parseFloat(lat),parseFloat(long)));
         alert(lat + " " + long);
-        initialize('outputGmap',14.535067000000,120.982153000000,14.560833000000,120.988333000000);
-//        alert("initialize('outputGmap',14.5939,120.9945)");
-//        initialize('outputGmap',14.5939,120.9945);
+//        initialize('outputGmap',14.535067000000,120.982153000000,14.560833000000,120.988333000000);
     });
     $(document).on('keypress', '.newcomment', function(e) {
         if (e.which == 13) {

@@ -14,7 +14,7 @@ class Latlong_model extends CI_Model {
         $latitude = $this->input->post('lat');
         $longitude = $this->input->post('long');
         $data = array(
-            'ID' => $id,
+            'LOCATION_ID' => $id,
             'LATITUDE' => $latitude,
             'LONGITUDE' => $longitude
         );
@@ -22,11 +22,14 @@ class Latlong_model extends CI_Model {
     }
     
     public function getLatLong($id){
-        $query = $this->db->select('LATLONG');
-        if($query->num_rows() > 0){
+        log_message('ERROR',$id . ' getlatLong start');
+        $this->db->where('LOCATION_ID',$id);
+        $query = $this->db->get('LATLONG');
+        if ($query->num_rows() > 0){
             $data = array();
-            foreach($data as $row){
-                $data[] = array('LAT' => $row->LATITUDE,'LONG' => $row->LONGITUDE);
+            foreach ($query->result() as $row){
+                log_message('ERROR',$id . ' getlatlong ' . $row->latitude . ' ' . $row->longitude);
+                $data[] = array('LAT' => $row->latitude,'LONG' => $row->longitude);
             }
             return $data;
         }

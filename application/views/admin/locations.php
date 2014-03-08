@@ -83,6 +83,7 @@
             }
         });
         $('#locationlist').dialog({
+            width: 500,
             autoOpen: false,
             modal: true,
             buttons: {

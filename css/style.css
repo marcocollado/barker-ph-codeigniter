@@ -165,7 +165,7 @@ clear:both;
 }*/
 
 .routedetail{   
-    /*border: 2px solid;*/
+    border: 1px solid;
     padding: 10px;
     /*margin: 5px;*/
 }
@@ -632,3 +632,18 @@ h1, h2, h3, h4 {
     padding: 5px;
 }
 
+.newroutebot{
+    background: -moz-linear-gradient(center bottom , #F9F9F9 0%, #ECECEC 100%) repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+    /*background: lightgrey !important;*/
+    border: 1px solid #CCCCCC !important;
+/*    border-left: 1px solid #CCCCCC !important;
+    border-right: 1px solid #CCCCCC !important;*/
+    /*margin-bottom: 16px;*/
+    margin: 20px auto;
+    padding: 4px 16px;
+    width: 300px;
+}
+
+#routetitlediv{
+    margin-bottom: 20px;
+}

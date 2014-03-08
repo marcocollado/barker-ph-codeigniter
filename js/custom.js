@@ -346,7 +346,7 @@ function initEditRouteDialog(){
                 },
                 cancel: function() {
                     var newtitleinput = "<div id='routetitlediv'>" + $('#routetitlediv').html() + "</div>";
-                    var newroutetemplate = "<div id='newroutediv'>" + $('#newroutediv').html() + "</div>";
+                    var newroutetemplate = "<div id='newroutediv' class='newroutebot'>" + $('#newroutediv').html() + "</div>";
                     $('#routeEdit').html(newtitleinput + $('#routeEditTemplate').html() + newroutetemplate);
                     $(this).dialog("close");
                 }
@@ -371,7 +371,7 @@ function buildRouteDetailString(classname,routestring){
     return routestring = "<div class='fromto titleroute'> From: " + from + "</div>" + routestring;
 }
 function buildAddRouteString(modes){
-    return "<div id='newroutediv'>" + getAddRoute(modes) + "</div>";
+    return "<div id='newroutediv' class='newroutebot'>" + getAddRoute(modes) + "</div>";
 }
 function updateRoute(newroutes,sug_id,newtitle){
 //    var sug_id = $('.activecomment').attr('id');
